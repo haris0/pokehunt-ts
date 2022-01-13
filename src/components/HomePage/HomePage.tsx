@@ -1,9 +1,30 @@
-import React from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_POKEMONS } from 'queries';
+import { IPokemonsRes } from 'types';
 
-const HomePage = () => (
-  <div>
-    Home Page
-  </div>
-);
+const HomePage = () => {
+  const { loading, error, data } = useQuery<IPokemonsRes>(GET_POKEMONS);
+  const pokemons = data?.pokemons;
+
+  return (
+    <div>
+      {loading && (
+        <span>Loading...</span>
+      )}
+      {!loading && error && (
+        <span>Error! {error.message}</span>
+      )}
+      {!loading && pokemons && (
+        <div>
+          <ul>
+            {pokemons.results.map((pokemon) => (
+              <li key={pokemon.id}>{pokemon.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default HomePage;
