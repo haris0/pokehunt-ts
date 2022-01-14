@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import {
   ApolloClient,
   InMemoryCache,
@@ -16,10 +16,23 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const theme = extendTheme({
+  colors: {
+    bg: {
+      dark: '#262626',
+      light: '#fff',
+    },
+    text: {
+      dark: '#e3e3e3',
+      light: '#27201a',
+    },
+  },
+});
+
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <React.StrictMode>
           <App />
         </React.StrictMode>

@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import { lazy, ReactNode, Suspense } from 'react';
 import {
   Routes,
@@ -52,7 +53,12 @@ const routes: IRoute[] = [
 ];
 
 const App = () => (
-  <div id="app">
+  <Box
+    id="app"
+    height="100vh"
+    bgColor="bg.dark"
+    color="text.dark"
+  >
     <Routes>
       <Route path="/" element={<Outlet />}>
         <Route
@@ -69,7 +75,7 @@ const App = () => (
         <Route path="*" element={<Navigate replace to="404" />} />
       </Route>
     </Routes>
-  </div>
+  </Box>
 );
 
 export default App;

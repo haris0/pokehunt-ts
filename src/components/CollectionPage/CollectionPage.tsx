@@ -1,7 +1,9 @@
+import { Box } from '@chakra-ui/react';
+
 const CollectionPage = () => (
-  <div id="Collection">
+  <Box id="Collection">
     Collection Page
-  </div>
+  </Box>
 );
 
 export default CollectionPage;

@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { GET_POKEMONS } from 'queries';
 import { IPokemonsRes } from 'types';
 import { Link, Outlet } from 'react-router-dom';
+import { Box } from '@chakra-ui/react';
 
 const HomePage = () => {
   const {
@@ -12,7 +13,7 @@ const HomePage = () => {
   const pokemons = data?.pokemons?.results;
 
   return (
-    <div id="Home">
+    <Box id="Home">
       {loading && (
         <span>Loading...</span>
       )}
@@ -31,7 +32,7 @@ const HomePage = () => {
         </div>
       )}
       <Outlet />
-    </div>
+    </Box>
   );
 };
 

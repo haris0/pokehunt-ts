@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { Box } from '@chakra-ui/react';
 import { GET_POKEMON_DETAIL } from 'queries';
 import { useParams } from 'react-router-dom';
 import { IPokemonDetRes } from 'types';
@@ -17,7 +18,7 @@ const DetailPage = () => {
   const pokemon = data?.pokemon;
 
   return (
-    <div id="Detail">
+    <Box id="Detail">
       {loading && (
         <span>Loading...</span>
       )}
@@ -29,7 +30,7 @@ const DetailPage = () => {
           Detail Pokemon {pokemon?.name}
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 
