@@ -8,6 +8,7 @@ import {
 
 const HomePage = lazy(() => import('./components/HomePage/HomePage'));
 const DetailPage = lazy(() => import('./components/DetailPage/DetailPage'));
+const CollectionPage = lazy(() => import('./components/CollectionPage/CollectionPage'));
 const Page404 = lazy(() => import('./components/Page404/Page404'));
 
 type IRoute = {
@@ -39,6 +40,10 @@ const routes: IRoute[] = [
       path: ':name',
       element: <DetailPage />,
     },
+  },
+  {
+    path: 'collection',
+    element: <CollectionPage />,
   },
   {
     path: '404',
