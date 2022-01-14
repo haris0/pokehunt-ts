@@ -19,13 +19,13 @@ const client = new ApolloClient({
 
 const theme = extendTheme({
   colors: {
-    bg: {
-      dark: '#262626',
-      light: '#fff',
+    dark: {
+      bg: '#262626',
+      text: '#e3e3e3',
     },
-    text: {
-      dark: '#e3e3e3',
-      light: '#27201a',
+    light: {
+      bg: '#fff',
+      text: '#27201a',
     },
   },
 });

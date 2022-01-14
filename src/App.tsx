@@ -60,8 +60,8 @@ const App = () => {
     <Box
       id="app"
       height="100vh"
-      bgColor={`bg.${theme}`}
-      color={`text.${theme}`}
+      bgColor={`${theme}.bg`}
+      color={`${theme}.text`}
     >
       <Routes>
         <Route path="/" element={<Outlet />}>

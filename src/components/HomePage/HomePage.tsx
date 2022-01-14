@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <Box id="Home">
       <Container {...container_style}>
-        <Heading {...heading_style} color={`text.${theme}`}>
+        <Heading {...heading_style} color={`${theme}.text`}>
           Wild Pokemon
         </Heading>
         {loading && (
