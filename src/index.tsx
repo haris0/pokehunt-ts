@@ -8,6 +8,7 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from '@apollo/client';
+import ContextProvider from 'context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -33,9 +34,11 @@ ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
       <ChakraProvider theme={theme}>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
+        <ContextProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </ContextProvider>
       </ChakraProvider>
     </ApolloProvider>
   </BrowserRouter>,

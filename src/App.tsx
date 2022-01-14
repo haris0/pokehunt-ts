@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTheme } from 'context/ThemeContext';
 import { lazy, ReactNode, Suspense } from 'react';
 import {
   Routes,
@@ -52,30 +53,34 @@ const routes: IRoute[] = [
   },
 ];
 
-const App = () => (
-  <Box
-    id="app"
-    height="100vh"
-    bgColor="bg.dark"
-    color="text.dark"
-  >
-    <Routes>
-      <Route path="/" element={<Outlet />}>
-        <Route
-          index
-          element={(
-            <Suspense fallback={<div />}>
-              <HomePage />
-            </Suspense>
-          )}
-        />
-        {routes.map((route) => (
-          generateRoute(route)
-        ))}
-        <Route path="*" element={<Navigate replace to="404" />} />
-      </Route>
-    </Routes>
-  </Box>
-);
+const App = () => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      id="app"
+      height="100vh"
+      bgColor={theme === 'dark' ? 'bg.dark' : 'bg.light'}
+      color={theme === 'dark' ? 'text.dark' : 'text.light'}
+    >
+      <Routes>
+        <Route path="/" element={<Outlet />}>
+          <Route
+            index
+            element={(
+              <Suspense fallback={<div />}>
+                <HomePage />
+              </Suspense>
+            )}
+          />
+          {routes.map((route) => (
+            generateRoute(route)
+          ))}
+          <Route path="*" element={<Navigate replace to="404" />} />
+        </Route>
+      </Routes>
+    </Box>
+  );
+};
 
 export default App;
