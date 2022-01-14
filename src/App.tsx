@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, ReactNode, Suspense } from 'react';
 import {
   Routes,
   Route,
@@ -10,64 +10,56 @@ const HomePage = lazy(() => import('./components/HomePage/HomePage'));
 const DetailPage = lazy(() => import('./components/DetailPage/DetailPage'));
 const Page404 = lazy(() => import('./components/Page404/Page404'));
 
-// type IRoutes = {
-//   path: string;
-//   element: ReactNode | undefined;
-//   child: {
-//     path: string
-//     element: ReactNode | undefined;
-//   } | undefined;
-// }[];
+type IRoute = {
+  path: string;
+  element?: ReactNode;
+  child?: IRoute;
+};
 
-// const routes: IRoutes = [
-//   {
-//     path: 'detail',
-//     element: undefined,
-//     child: {
-//       path: ':name',
-//       element: <DetailPage />,
-//     },
-//   },
-//   {
-//     path: '404',
-//     element: <Page404 />,
-//     child: undefined,
-//   },
-// ];
+const generateRoute = (route: IRoute) => (
+  <Route
+    key={route.path}
+    path={route.path}
+    element={route.element
+      ? (
+        <Suspense fallback={<div />}>
+          {route.element}
+        </Suspense>
+      )
+      : (<Outlet />)}
+  >
+    {route.child && generateRoute(route.child)}
+  </Route>
+);
+
+const routes: IRoute[] = [
+  {
+    path: 'detail',
+    child: {
+      path: ':name',
+      element: <DetailPage />,
+    },
+  },
+  {
+    path: '404',
+    element: <Page404 />,
+  },
+];
 
 const App = () => (
   <Routes>
     <Route path="/" element={<Outlet />}>
       <Route
         index
-        element={
-          (
-            <Suspense fallback={<div />}>
-              <HomePage />
-            </Suspense>
-          )
-        }
-      />
-
-      <Route path="detail" element={<Outlet />}>
-        <Route
-          path=":name"
-          element={(
-            <Suspense fallback={<div />}>
-              <DetailPage />
-            </Suspense>
-          )}
-        />
-      </Route>
-
-      <Route
-        path="404"
         element={(
           <Suspense fallback={<div />}>
-            <Page404 />
+            <HomePage />
           </Suspense>
         )}
       />
+      {routes.map((route) => (
+        generateRoute(route)
+      ))}
       <Route path="*" element={<Navigate replace to="404" />} />
     </Route>
   </Routes>
