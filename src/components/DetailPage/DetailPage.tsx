@@ -14,7 +14,7 @@ const DetailPage = () => {
       name: params.name,
     },
   });
-  console.log(data);
+  const pokemon = data?.pokemon;
 
   return (
     <div>
@@ -26,7 +26,7 @@ const DetailPage = () => {
       )}
       {!loading && data && (
         <div>
-          Detail Pokemon {params.name}
+          Detail Pokemon {pokemon?.name}
         </div>
       )}
     </div>

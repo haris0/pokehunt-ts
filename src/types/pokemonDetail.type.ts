@@ -31,10 +31,6 @@ export interface Pokemon {
   stats: Stat[];
 }
 
-export interface Data {
-  pokemon: Pokemon;
-}
-
 export interface IPokemonDetRes {
-  data: Data;
+  pokemon: Pokemon;
 }
