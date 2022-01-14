@@ -1,12 +1,34 @@
+import { useQuery } from '@apollo/client';
+import { GET_POKEMON_DETAIL } from 'queries';
 import { useParams } from 'react-router-dom';
+import { IPokemonDetRes } from 'types';
 
 const DetailPage = () => {
   const params = useParams();
-  console.log(params);
+  const {
+    loading,
+    error,
+    data,
+  } = useQuery<IPokemonDetRes>(GET_POKEMON_DETAIL, {
+    variables: {
+      name: params.name,
+    },
+  });
+  console.log(data);
 
   return (
     <div>
-      Detail Pokemon {params.name}
+      {loading && (
+        <span>Loading...</span>
+      )}
+      {!loading && error && (
+        <span>Error! {error.message}</span>
+      )}
+      {!loading && data && (
+        <div>
+          Detail Pokemon {params.name}
+        </div>
+      )}
     </div>
   );
 };

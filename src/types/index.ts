@@ -1,1 +1,2 @@
-export * from './pokemons';
+export * from './pokemons.type';
+export * from './pokemonDetail.type';
