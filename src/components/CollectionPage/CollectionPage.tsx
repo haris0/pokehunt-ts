@@ -1,5 +1,5 @@
 const CollectionPage = () => (
-  <div>
+  <div id="Collection">
     Collection Page
   </div>
 );

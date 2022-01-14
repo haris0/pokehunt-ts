@@ -52,22 +52,24 @@ const routes: IRoute[] = [
 ];
 
 const App = () => (
-  <Routes>
-    <Route path="/" element={<Outlet />}>
-      <Route
-        index
-        element={(
-          <Suspense fallback={<div />}>
-            <HomePage />
-          </Suspense>
-        )}
-      />
-      {routes.map((route) => (
-        generateRoute(route)
-      ))}
-      <Route path="*" element={<Navigate replace to="404" />} />
-    </Route>
-  </Routes>
+  <div id="app">
+    <Routes>
+      <Route path="/" element={<Outlet />}>
+        <Route
+          index
+          element={(
+            <Suspense fallback={<div />}>
+              <HomePage />
+            </Suspense>
+          )}
+        />
+        {routes.map((route) => (
+          generateRoute(route)
+        ))}
+        <Route path="*" element={<Navigate replace to="404" />} />
+      </Route>
+    </Routes>
+  </div>
 );
 
 export default App;

@@ -12,7 +12,7 @@ const HomePage = () => {
   const pokemons = data?.pokemons?.results;
 
   return (
-    <div>
+    <div id="Home">
       {loading && (
         <span>Loading...</span>
       )}

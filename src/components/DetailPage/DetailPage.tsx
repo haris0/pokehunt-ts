@@ -17,7 +17,7 @@ const DetailPage = () => {
   const pokemon = data?.pokemon;
 
   return (
-    <div>
+    <div id="Detail">
       {loading && (
         <span>Loading...</span>
       )}
