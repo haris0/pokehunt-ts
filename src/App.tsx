@@ -37,7 +37,7 @@ const generateRoute = (route: IRoute) => (
 
 const routes: IRoute[] = [
   {
-    path: 'detail',
+    path: 'pokemon',
     child: {
       path: ':name',
       element: <DetailPage />,
@@ -60,8 +60,8 @@ const App = () => {
     <Box
       id="app"
       height="100vh"
-      bgColor={theme === 'dark' ? 'bg.dark' : 'bg.light'}
-      color={theme === 'dark' ? 'text.dark' : 'text.light'}
+      bgColor={`bg.${theme}`}
+      color={`text.${theme}`}
     >
       <Routes>
         <Route path="/" element={<Outlet />}>
