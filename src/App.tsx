@@ -59,7 +59,7 @@ const App = () => {
   return (
     <Box
       id="app"
-      height="100vh"
+      minHeight="100vh"
       bgColor={`${theme}.bg`}
       color={`${theme}.text`}
     >

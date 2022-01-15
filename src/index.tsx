@@ -27,6 +27,9 @@ const theme = extendTheme({
       bg: '#fff',
       text: '#27201a',
     },
+    primary: {
+      green: '#56cca7',
+    },
   },
 });
 
