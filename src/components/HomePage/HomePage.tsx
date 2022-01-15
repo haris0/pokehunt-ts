@@ -112,12 +112,12 @@ const HomePage = () => {
                 </Link>
               ))}
             </SimpleGrid>
-            <CollectionButton count={0} />
             <Box {...loadmore_style}>
               <Spinball height="2.5rem" speed="1" />
             </Box>
           </>
         )}
+        <CollectionButton count={0} />
       </Container>
     </Box>
   );

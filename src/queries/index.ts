@@ -25,12 +25,13 @@ export const GET_POKEMON_DETAIL = gql`
       name
       height
       weight
+      base_experience
       sprites {
         back_default
         front_default
       }
-      moves {
-        move {
+      abilities {
+        ability {
           name
         }
       }
@@ -45,6 +46,11 @@ export const GET_POKEMON_DETAIL = gql`
         }
         effort
         base_stat
+      }
+      moves {
+        move {
+          name
+        }
       }
     }
   }
