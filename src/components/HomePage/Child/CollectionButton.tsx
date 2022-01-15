@@ -9,9 +9,10 @@ import Pokeball from 'assets/Pokeball.png';
 import Moon from 'assets/Moon.png';
 import Sun from 'assets/Sun.png';
 import UpArrow from 'assets/UpArrow.png';
-import { useSwitchTheme, useTheme } from 'context/ThemeContext';
+import { useSwitchTheme } from 'context/ThemeContext';
 
 type props = {
+  theme: 'dark' | 'light',
   count: number
 }
 
@@ -19,15 +20,20 @@ const scrollTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-const CollectionButton = ({ count }: props) => {
-  const theme = useTheme();
+const CollectionButton = ({ theme, count }: props) => {
   const switchTheme = useSwitchTheme();
   return (
     <Flex {...footer_flex} justify="space-between" wrap="wrap">
       <Box margin="auto">
         <Flex align="center">
-          <button type="button" style={{ ...rounded_button }} onClick={scrollTop}>
-            <Image alt="Dark" src={UpArrow} height="20px" width="20px" />
+
+          <button type="button" style={{ ...rounded_button }} onClick={switchTheme}>
+            {theme === 'dark' && (
+              <Image alt="Light" src={Sun} height="25px" width="25px" />
+            )}
+            {theme === 'light' && (
+              <Image alt="Dark" src={Moon} height="20px" width="20px" />
+            )}
           </button>
           <Link to="/collection">
             <button type="button" style={{ ...pokemon_button }}>
@@ -38,13 +44,8 @@ const CollectionButton = ({ count }: props) => {
               </Box>
             </button>
           </Link>
-          <button type="button" style={{ ...rounded_button }} onClick={switchTheme}>
-            {theme === 'dark' && (
-              <Image alt="Light" src={Sun} height="25px" width="25px" />
-            )}
-            {theme === 'light' && (
-              <Image alt="Dark" src={Moon} height="20px" width="20px" />
-            )}
+          <button type="button" style={{ ...rounded_button }} onClick={scrollTop}>
+            <Image alt="Dark" src={UpArrow} height="20px" width="20px" />
           </button>
         </Flex>
       </Box>

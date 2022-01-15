@@ -117,7 +117,7 @@ const HomePage = () => {
             </Box>
           </>
         )}
-        <CollectionButton count={0} />
+        <CollectionButton theme={theme} count={0} />
       </Container>
     </Box>
   );
