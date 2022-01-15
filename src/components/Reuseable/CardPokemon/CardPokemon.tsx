@@ -93,6 +93,7 @@ const owned_style: ChakraProps = {
   top: '9.5rem',
   left: '0rem',
   border: '0.2rem solid #56cca7',
+  borderLeft: 'none',
   height: '1.8rem',
   width: '5.5rem',
   display: 'flex',

@@ -9,11 +9,13 @@ import {
   Heading,
   SimpleGrid,
   Skeleton,
+  Image,
 } from '@chakra-ui/react';
 import { useTheme } from 'context/ThemeContext';
 import Spinball from 'components/Reuseable/Spinball/Spinball';
 import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
 import { useEffect } from 'react';
+import PokeHunt from 'assets/PokeHunt.png';
 import CollectionButton from './Child/CollectionButton';
 
 const HomePage = () => {
@@ -77,7 +79,12 @@ const HomePage = () => {
         >
           <Spinball height="3rem" speed="10" />
           <Box marginLeft="1rem">
-            Wild Pokemon
+
+            <Image
+              alt="Poketop"
+              height="3.5rem"
+              src={PokeHunt}
+            />
           </Box>
         </Heading>
         {loading && (
