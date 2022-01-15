@@ -84,7 +84,7 @@ const HomePage = () => {
         )}
         {!loading && pokemons && (
           <>
-            <SimpleGrid minChildWidth="9rem" spacing="40px" justifyItems="center">
+            <SimpleGrid minChildWidth="8rem" spacing="40px" justifyItems="center">
               {pokemons.map((pokemon, idx) => (
                 <Link to={`/pokemon/${pokemon.name}`} key={pokemon.id}>
                   <CardPokemon

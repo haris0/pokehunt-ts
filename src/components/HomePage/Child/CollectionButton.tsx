@@ -1,45 +1,57 @@
 import {
   Box,
-  // Button,
   Image,
   Flex,
   ChakraProps,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import Pokeball from 'assets/Pokeball.png';
+import Moon from 'assets/Moon.png';
+import Sun from 'assets/Sun.png';
+import UpArrow from 'assets/UpArrow.png';
+import { useSwitchTheme, useTheme } from 'context/ThemeContext';
 
 type props = {
   count: number
 }
 
-const CollectionButton = ({ count }: props) => (
-  <Flex {...footer_flex} justify="space-between" wrap="wrap">
-    <Box margin="auto">
-      <Flex align="center">
-        <Link to="/collection">
-          <button type="button" style={{ ...pokemon_button }}>
-            <Image alt="Poke Ball" src={Pokeball} height="30px" width="30px" />
-            <b style={{ margin: '0 0.7rem' }}>My Pokemon</b>
-            <Box {...count_box}>
-              <b>{count}</b>
-            </Box>
-          </button>
-          {/* <Button
-            {...pokemon_button}
-            colorScheme="teal"
-            leftIcon={<Image alt="Poke Ball" src={Pokeball} height="23px" width="23px" />}
-          >
-            My Pokemon
-            <Box {...count_box}>
-              {count}
-            </Box>
-          </Button> */}
-        </Link>
-      </Flex>
-    </Box>
-  </Flex>
+const scrollTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
-);
+const CollectionButton = ({ count }: props) => {
+  const theme = useTheme();
+  const switchTheme = useSwitchTheme();
+  return (
+    <Flex {...footer_flex} justify="space-between" wrap="wrap">
+      <Box margin="auto">
+        <Flex align="center">
+          <button type="button" style={{ ...rounded_button }} onClick={scrollTop}>
+            <Image alt="Dark" src={UpArrow} height="20px" width="20px" />
+          </button>
+          <Link to="/collection">
+            <button type="button" style={{ ...pokemon_button }}>
+              <Image alt="Poke Ball" src={Pokeball} height="30px" width="30px" />
+              <b style={{ margin: '0 0.7rem' }}>My Pokemon</b>
+              <Box {...count_box}>
+                <b>{count}</b>
+              </Box>
+            </button>
+          </Link>
+          <button type="button" style={{ ...rounded_button }} onClick={switchTheme}>
+            {theme === 'dark' && (
+              <Image alt="Light" src={Sun} height="25px" width="25px" />
+            )}
+            {theme === 'light' && (
+              <Image alt="Dark" src={Moon} height="20px" width="20px" />
+            )}
+          </button>
+        </Flex>
+      </Box>
+    </Flex>
+
+  );
+};
 
 export default CollectionButton;
 
@@ -61,6 +73,8 @@ const pokemon_button = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  margin: '0 1rem',
+  boxShadow: '0px 0px 7px 1px #000000',
 };
 
 const count_box: ChakraProps = {
@@ -68,8 +82,20 @@ const count_box: ChakraProps = {
   width: '30px',
   height: '30px',
   bgColor: '#2E3131',
+  color: 'white',
   borderRadius: 'full',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+};
+
+const rounded_button = {
+  backgroundColor: '#57cca7',
+  height: '3.4rem',
+  width: '3.4rem',
+  borderRadius: '3.5rem',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  boxShadow: '0px 0px 7px 1px #000000',
 };
