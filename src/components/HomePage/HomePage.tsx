@@ -13,6 +13,7 @@ import { useTheme } from 'context/ThemeContext';
 import Spinball from 'components/Reuseable/Spinball/Spinball';
 import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
 import { useEffect } from 'react';
+import CollectionButton from './Child/CollectionButton';
 
 const HomePage = () => {
   const theme = useTheme();
@@ -96,6 +97,7 @@ const HomePage = () => {
                 </Link>
               ))}
             </SimpleGrid>
+            <CollectionButton count={0} />
             <Box {...loadmore_style}>
               <Spinball height="2.5rem" speed="1" />
             </Box>
@@ -110,7 +112,7 @@ export default HomePage;
 
 const container_style = {
   maxW: '960px',
-  padding: '2rem',
+  padding: '2rem 2rem 6rem',
 };
 
 const heading_style: ChakraProps = {
