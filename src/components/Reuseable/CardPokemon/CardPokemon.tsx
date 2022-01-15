@@ -1,21 +1,31 @@
 import {
   Box, ChakraProps, Image,
 } from '@chakra-ui/react';
-import pokeball from '../assets/Pokeball.png';
-import pokeEgg from '../assets/PokeEgg.png';
+import pokeball from 'assets/Pokeball.png';
+import pokeEgg from 'assets/PokeEgg.png';
 
 type props = {
+  theme: 'dark' | 'light';
   name: string;
+  number: number;
   imageUrl: string;
   owned: number;
 }
 
-const CardPokemon = ({ name, imageUrl, owned }: props) => (
+const CardPokemon = ({
+  theme,
+  number,
+  name,
+  imageUrl,
+  owned,
+}: props) => (
   <Box
     {...card_style}
-    _hover={{ ...card_style_hover }}
   >
     <Box {...image_box}>
+      <Box {...number_style}>
+        <b>#{String(number).padStart(3, '0')}</b>
+      </Box>
       <Image
         src={imageUrl}
         fallbackSrc={pokeEgg}
@@ -23,13 +33,15 @@ const CardPokemon = ({ name, imageUrl, owned }: props) => (
         alt={name}
       />
     </Box>
-    <Box {...owned_style}>
+    <Box {...owned_style} bgColor={`${theme}.bg`}>
       Owned {owned}
     </Box>
-    <Box p="5">
+    <Box p="20px 0px">
       <Box
         mt="1"
         fontWeight="semibold"
+        textAlign="center"
+        textTransform="capitalize"
         as="h4"
         lineHeight="tight"
         isTruncated
@@ -44,16 +56,23 @@ export default CardPokemon;
 
 const card_style: ChakraProps = {
   maxW: 'sm',
+  width: '10rem',
+  height: '14.5rem',
   border: '1px solid rgba(0,0,0,.125)',
   borderRadius: '20px',
   overflow: 'hidden',
   boxShadow: '7px 7px 0 #56cca7',
   transition: 'all 0.25s',
   position: 'relative',
+  _hover: {
+    boxShadow: 'none',
+  },
 };
 
-const card_style_hover: ChakraProps = {
-  boxShadow: 'none',
+const number_style: ChakraProps = {
+  position: 'absolute',
+  top: '0.5rem',
+  right: '0.7rem',
 };
 
 const image_box: ChakraProps = {
@@ -71,13 +90,15 @@ const image_box: ChakraProps = {
 
 const owned_style: ChakraProps = {
   position: 'absolute',
-  top: '8.5rem',
-  left: '2rem',
-  border: '3px solid #56cca7',
-  height: '2rem',
-  width: '6rem',
+  top: '9.5rem',
+  left: '0rem',
+  border: '0.2rem solid #56cca7',
+  height: '1.8rem',
+  width: '5.5rem',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  borderRadius: '20px',
+  borderTopRightRadius: '10px',
+  borderBottomRightRadius: '10px',
+  fontSize: '14px',
 };

@@ -3,7 +3,7 @@ import {
   usePrefersReducedMotion,
   Image,
 } from '@chakra-ui/react';
-import pokeball from '../assets/PokeballGreen.png';
+import pokeball from 'assets/PokeballGreen.png';
 
 const spin = keyframes`
   from { transform: rotate(0deg); }

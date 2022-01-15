@@ -10,8 +10,8 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 import { useTheme } from 'context/ThemeContext';
-import Spinball from 'components/Spinball/Spinball';
-import CardPokemon from 'components/CardPokemon/CardPokemon';
+import Spinball from 'components/Reuseable/Spinball/Spinball';
+import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
 
 const HomePage = () => {
   const theme = useTheme();
@@ -40,11 +40,13 @@ const HomePage = () => {
           <span>Error! {error.message}</span>
         )}
         {!loading && pokemons && (
-          <SimpleGrid minChildWidth="9rem" spacing="40px">
-            {pokemons.map((pokemon) => (
+          <SimpleGrid minChildWidth="9rem" spacing="40px" justifyItems="center">
+            {pokemons.map((pokemon, idx) => (
               <Link to={`/pokemon/${pokemon.name}`} key={pokemon.id}>
                 <CardPokemon
+                  theme={theme}
                   name={pokemon.name}
+                  number={idx + 1}
                   imageUrl={pokemon.image}
                   owned={0}
                 />
