@@ -8,6 +8,7 @@ import {
   Container,
   Heading,
   SimpleGrid,
+  Skeleton,
 } from '@chakra-ui/react';
 import { useTheme } from 'context/ThemeContext';
 import Spinball from 'components/Reuseable/Spinball/Spinball';
@@ -28,6 +29,7 @@ const HomePage = () => {
     fetchMore,
   } = useQuery<IPokemonsRes>(GET_POKEMONS, { variables });
   const pokemons = data?.pokemons?.results;
+  const skeletonArr = Array.from(Array(20).keys());
 
   const handleLoadMore = () => {
     variables.offset += variables.limit;
@@ -52,7 +54,9 @@ const HomePage = () => {
     ) >= document.documentElement.scrollHeight;
     if (bottom) {
       console.log('at the bottom');
-      handleLoadMore();
+      setTimeout(() => {
+        handleLoadMore();
+      }, 500);
     }
   };
 
@@ -77,7 +81,11 @@ const HomePage = () => {
           </Box>
         </Heading>
         {loading && (
-          <span>Loading...</span>
+          <SimpleGrid minChildWidth="8rem" spacing="40px" justifyItems="center">
+            {skeletonArr.map((skeleton) => (
+              <Skeleton {...skeleton_style} key={skeleton} />
+            ))}
+          </SimpleGrid>
         )}
         {!loading && error && (
           <span>Error! {error.message}</span>
@@ -109,6 +117,12 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+const skeleton_style: ChakraProps = {
+  height: '14.5rem',
+  width: '10rem',
+  borderRadius: '20px',
+};
 
 const container_style = {
   maxW: '960px',
