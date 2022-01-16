@@ -34,7 +34,7 @@ const CardPokemon = ({
       />
     </Box>
     <Box {...owned_style} bgColor={`${theme}.bg`}>
-      Owned {owned}
+      <b>Owned {owned}</b>
     </Box>
     <Box p="20px 0px">
       <Box
