@@ -1,7 +1,13 @@
 import { useQuery } from '@apollo/client';
 import {
-  Badge,
-  Box, ChakraProps, Container, Image, Stat, StatGroup, StatLabel, StatNumber, Text,
+  Box,
+  ChakraProps,
+  Container,
+  Image, Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  Text,
 } from '@chakra-ui/react';
 import { TypeColors } from 'colors';
 import { GET_POKEMON_DETAIL } from 'queries';
@@ -9,9 +15,11 @@ import { useParams } from 'react-router-dom';
 import { IPokemonDetRes } from 'types';
 import pokeball from 'assets/Pokeball.png';
 import pokeEgg from 'assets/PokeEgg.png';
+import { useTheme } from 'context/ThemeContext';
 
 const DetailPage = () => {
   const params = useParams();
+  const theme = useTheme();
   const {
     loading,
     error,
@@ -54,16 +62,24 @@ const DetailPage = () => {
                 <Text {...name_style}>
                   {pokemon?.name}
                 </Text>
+                <Box
+                  {...exp_box}
+                  bgColor={`${theme === 'dark' ? 'light' : 'dark'}.bg`}
+                  color={`${theme === 'dark' ? 'light' : 'dark'}.text`}
+                >
+                  <Text>
+                    EXP {pokemon?.base_experience}
+                  </Text>
+                </Box>
                 <Box {...type_box}>
                   {pokemon?.types.map((type) => (
-                    <Badge
+                    <Box
                       {...bedge_type}
                       bgColor={TypeColors[type.type.name]}
                       key={type.type.name}
-                      variant="solid"
                     >
                       {type.type.name}
-                    </Badge>
+                    </Box>
                   ))}
                 </Box>
                 <StatGroup {...heigt_box}>
@@ -78,8 +94,8 @@ const DetailPage = () => {
                 </StatGroup>
               </Box>
               <Box
-                mt={5}
-                ml={{ md: 10 }}
+                pt={5}
+                pl={{ md: 10 }}
                 width={{ md: '70%' }}
               >
                 Pokemon Ability
@@ -109,12 +125,22 @@ const container_style: ChakraProps = {
 };
 
 const left_box : ChakraProps = {
+  position: 'relative',
   marginTop: '-11rem',
 };
 
 const image_box: ChakraProps = {
   display: 'flex',
   justifyContent: 'center',
+};
+
+const exp_box: ChakraProps = {
+  textAlign: 'center',
+  marginBottom: '0.5rem',
+  padding: '0.1rem 1rem',
+  color: 'white',
+  transform: 'skew(-15deg)',
+  fontWeight: '900',
 };
 
 const name_style: ChakraProps = {
@@ -126,18 +152,24 @@ const name_style: ChakraProps = {
 };
 
 const type_box: ChakraProps = {
+  display: 'flex',
+  justifyContent: 'center',
   textAlign: 'center',
   marginBottom: '10px',
 };
 
 const bedge_type: ChakraProps = {
+  width: 'fit-content',
+  color: 'white',
+  padding: '0 1rem',
+  borderRadius: '1rem',
   margin: '5px',
   textTransform: 'capitalize',
 };
 
 const heigt_box: ChakraProps = {
   border: '1px solid rgba(0,0,0,.125)',
-  borderRadius: '5px',
+  borderRadius: '10px',
   padding: '20px',
   textAlign: 'center',
 };
