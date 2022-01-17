@@ -15,11 +15,9 @@ import { useParams } from 'react-router-dom';
 import { IPokemonDetRes } from 'types';
 import pokeball from 'assets/Pokeball.png';
 import pokeEgg from 'assets/PokeEgg.png';
-import { useTheme } from 'context/ThemeContext';
 
 const DetailPage = () => {
   const params = useParams();
-  const theme = useTheme();
   const {
     loading,
     error,
@@ -59,23 +57,23 @@ const DetailPage = () => {
                     zIndex={99}
                   />
                 </Box>
+                <Box
+                  {...exp_box}
+                  border={`2px solid ${TypeColors[pokemon?.types[0].type.name || 'normal']}`}
+                >
+                  <Text transform="skew(15deg);">
+                    BASE EXP {pokemon?.base_experience}
+                  </Text>
+                </Box>
                 <Text {...name_style}>
                   {pokemon?.name}
                 </Text>
-                <Box
-                  {...exp_box}
-                  bgColor={`${theme === 'dark' ? 'light' : 'dark'}.bg`}
-                  color={`${theme === 'dark' ? 'light' : 'dark'}.text`}
-                >
-                  <Text>
-                    EXP {pokemon?.base_experience}
-                  </Text>
-                </Box>
                 <Box {...type_box}>
                   {pokemon?.types.map((type) => (
                     <Box
                       {...bedge_type}
                       bgColor={TypeColors[type.type.name]}
+                      color="light.text"
                       key={type.type.name}
                     >
                       {type.type.name}
@@ -98,7 +96,21 @@ const DetailPage = () => {
                 pl={{ md: 10 }}
                 width={{ md: '70%' }}
               >
-                Pokemon Ability
+                <Box>
+                  <Text {...sub_title}>Ability:</Text>
+                  <Box display="flex">
+                    {pokemon?.abilities.map((ability) => (
+                      <Box
+                        border={`2px solid ${TypeColors[pokemon?.types[0].type.name || 'normal']}`}
+                        {...ability_box}
+                      >
+                        <Text transform="skew(15deg);">
+                          {ability.ability.name}
+                        </Text>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
               </Box>
             </Box>
           </Container>
@@ -135,6 +147,7 @@ const image_box: ChakraProps = {
 };
 
 const exp_box: ChakraProps = {
+  marginTop: '-1.5rem',
   textAlign: 'center',
   marginBottom: '0.5rem',
   padding: '0.1rem 1rem',
@@ -147,7 +160,7 @@ const name_style: ChakraProps = {
   textAlign: 'center',
   textTransform: 'capitalize',
   fontWeight: 'bold',
-  marginTop: '-2.5rem',
+  marginTop: '-0.4rem',
   fontSize: '32px',
 };
 
@@ -159,8 +172,8 @@ const type_box: ChakraProps = {
 };
 
 const bedge_type: ChakraProps = {
+  fontWeight: 'bold',
   width: 'fit-content',
-  color: 'white',
   padding: '0 1rem',
   borderRadius: '1rem',
   margin: '5px',
@@ -172,4 +185,17 @@ const heigt_box: ChakraProps = {
   borderRadius: '10px',
   padding: '20px',
   textAlign: 'center',
+};
+
+const sub_title: ChakraProps = {
+  fontSize: '26px',
+  fontWeight: '900',
+};
+
+const ability_box: ChakraProps = {
+  marginTop: '0.75rem',
+  marginRight: '1rem',
+  transform: 'skew(-15deg)',
+  padding: '0.1rem 1rem',
+  textTransform: 'capitalize',
 };
