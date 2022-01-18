@@ -65,7 +65,7 @@ const footer_flex: ChakraProps = {
 };
 
 const pokemon_button = {
-  backgroundColor: '#57cca7',
+  backgroundColor: '#23CBA7',
   color: 'white',
   height: '3.4rem',
   width: '13rem',
@@ -90,7 +90,7 @@ const count_box: ChakraProps = {
 };
 
 const rounded_button = {
-  backgroundColor: '#57cca7',
+  backgroundColor: '#23CBA7',
   height: '3.4rem',
   width: '3.4rem',
   borderRadius: '3.5rem',

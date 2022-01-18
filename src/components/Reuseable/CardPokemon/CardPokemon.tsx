@@ -61,7 +61,7 @@ const card_style: ChakraProps = {
   border: '1px solid rgba(0,0,0,.125)',
   borderRadius: '20px',
   overflow: 'hidden',
-  boxShadow: '7px 7px 0 #56cca7',
+  boxShadow: '7px 7px 0 #23CBA7',
   transition: 'all 0.25s',
   position: 'relative',
   _hover: {
@@ -92,7 +92,7 @@ const owned_style: ChakraProps = {
   position: 'absolute',
   top: '9.5rem',
   left: '0rem',
-  border: '0.2rem solid #56cca7',
+  border: '0.2rem solid #23CBA7',
   borderLeft: 'none',
   height: '1.8rem',
   width: '5.5rem',

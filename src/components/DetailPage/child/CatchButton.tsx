@@ -31,7 +31,7 @@ const CatchButton = ({
             style={{ ...rounded_button, backgroundColor: bgColor }}
             onClick={() => navigate(-1)}
           >
-            <Image alt="Dark" src={LeftArrow} height="20px" width="20px" />
+            <Image alt="back" src={LeftArrow} height="20px" width="20px" />
           </button>
           <Link to="/collection">
             <button type="button" style={{ ...pokemon_button, backgroundColor: bgColor }}>
