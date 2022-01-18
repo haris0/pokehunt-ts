@@ -3,13 +3,7 @@ import {
   Box,
   ChakraProps,
   Container,
-  Grid,
   Image,
-  Progress,
-  Stat,
-  StatGroup,
-  StatLabel,
-  StatNumber,
   Text,
 } from '@chakra-ui/react';
 import { TypeColors } from 'colors';
@@ -18,6 +12,11 @@ import { useParams } from 'react-router-dom';
 import { IPokemonDetRes } from 'types';
 import pokeball from 'assets/Pokeball.png';
 import pokeEgg from 'assets/PokeEgg.png';
+import PokemonSize from './child/PokemonSize';
+import PokemonStats from './child/PokemonStats';
+import PokemonMoves from './child/PokemonMoves';
+import PokemonAbilities from './child/PokemonAbilities';
+import PokemonTypes from './child/PokemonTypes';
 
 const DetailPage = () => {
   const params = useParams();
@@ -70,28 +69,8 @@ const DetailPage = () => {
                 <Text {...name_style}>
                   {pokemon?.name}
                 </Text>
-                <Box {...type_box}>
-                  {pokemon?.types.map((type) => (
-                    <Box
-                      {...bedge_type}
-                      bgColor={TypeColors[type.type.name]}
-                      color="light.text"
-                      key={type.type.name}
-                    >
-                      {type.type.name}
-                    </Box>
-                  ))}
-                </Box>
-                <StatGroup {...heigt_box}>
-                  <Stat position="initial">
-                    <StatLabel>Height</StatLabel>
-                    <StatNumber>{`${pokemon?.height}"`}</StatNumber>
-                  </Stat>
-                  <Stat position="initial">
-                    <StatLabel>Weight</StatLabel>
-                    <StatNumber>{`${pokemon?.weight}lbs`}</StatNumber>
-                  </Stat>
-                </StatGroup>
+                <PokemonTypes types={pokemon?.types} />
+                <PokemonSize height={pokemon?.height} weight={pokemon?.weight} />
               </Box>
               <Box
                 pt={1}
@@ -100,46 +79,15 @@ const DetailPage = () => {
               >
                 <Box>
                   <Text {...sub_title}>Ability:</Text>
-                  <Box display="flex">
-                    {pokemon?.abilities.map((ability) => (
-                      <Box
-                        border={`2px solid ${typeColor}`}
-                        {...ability_box}
-                      >
-                        <Text transform="skew(15deg);">
-                          {ability.ability.name}
-                        </Text>
-                      </Box>
-                    ))}
-                  </Box>
+                  <PokemonAbilities abilities={pokemon?.abilities} typeColor={typeColor} />
                 </Box>
                 <Box>
                   <Text {...sub_title}>Stats:</Text>
-                  <Box margin="5px">
-                    {pokemon?.stats.map((stat) => (
-                      <Box key={stat.stat.name}>
-                        <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                          <Box w="100%">
-                            <Text {...stat_name}>{stat.stat.name}</Text>
-                          </Box>
-                          <Box w="100%">
-                            <Text {...stat_value}>{stat.base_stat}</Text>
-                          </Box>
-                        </Grid>
-                        <Progress {...progrs_style} colorScheme="gray" size="xs" value={stat.base_stat} />
-                      </Box>
-                    ))}
-                  </Box>
+                  <PokemonStats stats={pokemon?.stats} />
                 </Box>
                 <Box>
                   <Text {...sub_title}>Moves:</Text>
-                  <Box pb={4} {...panel_style}>
-                    {pokemon?.moves.map((move) => (
-                      <Box border={`2px solid ${typeColor}`} {...move_style}>
-                        {move.move.name}
-                      </Box>
-                    ))}
-                  </Box>
+                  <PokemonMoves moves={pokemon?.moves} typeColor={typeColor} />
                 </Box>
               </Box>
             </Box>
@@ -193,72 +141,8 @@ const name_style: ChakraProps = {
   fontSize: '32px',
 };
 
-const type_box: ChakraProps = {
-  display: 'flex',
-  justifyContent: 'center',
-  textAlign: 'center',
-  marginBottom: '10px',
-};
-
-const bedge_type: ChakraProps = {
-  fontWeight: 'bold',
-  width: 'fit-content',
-  padding: '0 1rem',
-  borderRadius: '1rem',
-  margin: '5px',
-  textTransform: 'capitalize',
-};
-
-const heigt_box: ChakraProps = {
-  border: '1px solid rgba(0,0,0,.125)',
-  borderRadius: '10px',
-  padding: '20px',
-  textAlign: 'center',
-};
-
 const sub_title: ChakraProps = {
   marginTop: '1rem',
   fontSize: '26px',
   fontWeight: '900',
-};
-
-const ability_box: ChakraProps = {
-  marginTop: '0.75rem',
-  marginRight: '1rem',
-  transform: 'skew(-15deg)',
-  padding: '0.1rem 1rem',
-  textTransform: 'capitalize',
-};
-
-const progrs_style: ChakraProps = {
-  marginTop: '5px',
-  position: 'inherit',
-};
-
-const stat_value: ChakraProps = {
-  textTransform: 'uppercase',
-  textAlign: 'right',
-};
-
-const stat_name: ChakraProps = {
-  textTransform: 'uppercase',
-};
-
-const panel_style: ChakraProps = {
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  margin: '0px',
-  display: 'flex',
-  justifyContent: 'flex-start',
-  gap: '2px',
-  maxHeight: '412px',
-  overflowY: 'scroll',
-  padding: '5px',
-};
-
-const move_style: ChakraProps = {
-  marginRight: '0.5rem',
-  marginBottom: '0.5rem',
-  textTransform: 'capitalize' as const,
-  padding: '0 0.5rem',
 };
