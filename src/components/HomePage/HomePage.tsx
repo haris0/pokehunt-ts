@@ -13,8 +13,8 @@ import {
 import { useTheme } from 'context/ThemeContext';
 import Spinball from 'components/Reuseable/Spinball/Spinball';
 import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
-import { useEffect } from 'react';
 import PokeHunt from 'assets/PokeHunt.png';
+import DownArrow from 'assets/DownArrow.png';
 import CollectionButton from './Child/CollectionButton';
 import LoadingSkeleton from './Child/LoadingSkeleton';
 
@@ -48,25 +48,6 @@ const HomePage = () => {
       },
     });
   };
-
-  const handleScroll = () => {
-    const bottom = Math.ceil(
-      window.innerHeight + window.scrollY,
-    ) >= document.documentElement.scrollHeight;
-    if (bottom) {
-      console.log('at the bottom');
-      setTimeout(() => {
-        handleLoadMore();
-      }, 500);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [data]);
 
   return (
     <Box id="Home">
@@ -106,8 +87,14 @@ const HomePage = () => {
                 </Link>
               ))}
             </SimpleGrid>
-            <Box {...loadmore_style}>
-              <Spinball height="2.5rem" speed="1" />
+            <Box {...loadmore_box}>
+              <button
+                type="button"
+                style={{ ...loadmore_style }}
+                onClick={handleLoadMore}
+              >
+                <Image alt="loadmore" src={DownArrow} height="20px" width="20px" />
+              </button>
             </Box>
           </>
         )}
@@ -134,8 +121,18 @@ const heading_style: ChakraProps = {
   alignItems: 'center',
 };
 
-const loadmore_style: ChakraProps = {
+const loadmore_box: ChakraProps = {
   display: 'flex',
   justifyContent: 'center',
-  marginTop: '2rem',
+  marginTop: '1.5rem',
+};
+
+const loadmore_style = {
+  backgroundColor: '#23CBA7',
+  height: '3.4rem',
+  width: '3.4rem',
+  borderRadius: '3.5rem',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
