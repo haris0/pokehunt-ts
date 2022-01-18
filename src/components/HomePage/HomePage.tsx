@@ -33,7 +33,7 @@ const HomePage = () => {
   const pokemons = data?.pokemons?.results;
 
   const handleLoadMore = () => {
-    variables.offset += variables.limit;
+    variables.offset = data?.pokemons.nextOffset as number;
     fetchMore({
       variables,
       updateQuery: (previousResult, { fetchMoreResult }) => {
@@ -66,7 +66,7 @@ const HomePage = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [data]);
 
   return (
     <Box id="Home">
