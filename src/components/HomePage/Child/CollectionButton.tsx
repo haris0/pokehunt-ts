@@ -26,7 +26,6 @@ const CollectionButton = ({ theme, count }: props) => {
     <Flex {...footer_flex} justify="space-between" wrap="wrap">
       <Box margin="auto">
         <Flex align="center">
-
           <button type="button" style={{ ...rounded_button }} onClick={switchTheme}>
             {theme === 'dark' && (
               <Image alt="Light" src={Sun} height="25px" width="25px" />
@@ -50,7 +49,6 @@ const CollectionButton = ({ theme, count }: props) => {
         </Flex>
       </Box>
     </Flex>
-
   );
 };
 
@@ -68,6 +66,7 @@ const footer_flex: ChakraProps = {
 
 const pokemon_button = {
   backgroundColor: '#57cca7',
+  color: 'white',
   height: '3.4rem',
   width: '13rem',
   borderRadius: '3.5rem',

@@ -18,6 +18,7 @@ import PokemonMoves from './child/PokemonMoves';
 import PokemonAbilities from './child/PokemonAbilities';
 import PokemonTypes from './child/PokemonTypes';
 import LoadingSkeleton from './child/LoadingSkeleton';
+import CatchButton from './child/CatchButton';
 
 const DetailPage = () => {
   const params = useParams();
@@ -32,6 +33,10 @@ const DetailPage = () => {
   });
   const pokemon = data?.pokemon;
   const typeColor = TypeColors[pokemon?.types[0].type.name || 'normal'];
+
+  const handleCatch = () => {
+    console.log('cathc');
+  };
 
   return (
     <Box id="Detail">
@@ -92,6 +97,11 @@ const DetailPage = () => {
                 </Box>
               </Box>
             </Box>
+            <CatchButton
+              bgColor={typeColor}
+              pokemonCount={0}
+              handleCatch={handleCatch}
+            />
           </Container>
         </Box>
       )}
@@ -112,7 +122,7 @@ const banner_style: ChakraProps = {
 
 const container_style: ChakraProps = {
   maxW: '960px',
-  padding: '0rem 1rem 3rem 1rem',
+  padding: '0rem 1rem 6rem 1rem',
 };
 
 const left_box : ChakraProps = {
