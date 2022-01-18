@@ -3,7 +3,10 @@ import {
   Box,
   ChakraProps,
   Container,
-  Image, Stat,
+  Grid,
+  Image,
+  Progress,
+  Stat,
   StatGroup,
   StatLabel,
   StatNumber,
@@ -28,6 +31,7 @@ const DetailPage = () => {
     },
   });
   const pokemon = data?.pokemon;
+  const typeColor = TypeColors[pokemon?.types[0].type.name || 'normal'];
 
   return (
     <Box id="Detail">
@@ -41,9 +45,7 @@ const DetailPage = () => {
         <Box>
           <Box
             {...banner_style}
-            bgColor={
-              TypeColors[pokemon?.types[0].type.name || 'normal']
-            }
+            bgColor={typeColor}
           />
           <Container {...container_style}>
             <Box display={{ md: 'flex' }}>
@@ -59,7 +61,7 @@ const DetailPage = () => {
                 </Box>
                 <Box
                   {...exp_box}
-                  border={`2px solid ${TypeColors[pokemon?.types[0].type.name || 'normal']}`}
+                  border={`2px solid ${typeColor}`}
                 >
                   <Text transform="skew(15deg);">
                     BASE EXP {pokemon?.base_experience}
@@ -92,7 +94,7 @@ const DetailPage = () => {
                 </StatGroup>
               </Box>
               <Box
-                pt={5}
+                pt={1}
                 pl={{ md: 10 }}
                 width={{ md: '70%' }}
               >
@@ -101,12 +103,40 @@ const DetailPage = () => {
                   <Box display="flex">
                     {pokemon?.abilities.map((ability) => (
                       <Box
-                        border={`2px solid ${TypeColors[pokemon?.types[0].type.name || 'normal']}`}
+                        border={`2px solid ${typeColor}`}
                         {...ability_box}
                       >
                         <Text transform="skew(15deg);">
                           {ability.ability.name}
                         </Text>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+                <Box>
+                  <Text {...sub_title}>Stats:</Text>
+                  <Box margin="5px">
+                    {pokemon?.stats.map((stat) => (
+                      <Box key={stat.stat.name}>
+                        <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                          <Box w="100%">
+                            <Text {...stat_name}>{stat.stat.name}</Text>
+                          </Box>
+                          <Box w="100%">
+                            <Text {...stat_value}>{stat.base_stat}</Text>
+                          </Box>
+                        </Grid>
+                        <Progress {...progrs_style} colorScheme="gray" size="xs" value={stat.base_stat} />
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+                <Box>
+                  <Text {...sub_title}>Moves:</Text>
+                  <Box pb={4} {...panel_style}>
+                    {pokemon?.moves.map((move) => (
+                      <Box border={`2px solid ${typeColor}`} {...move_style}>
+                        {move.move.name}
                       </Box>
                     ))}
                   </Box>
@@ -151,7 +181,6 @@ const exp_box: ChakraProps = {
   textAlign: 'center',
   marginBottom: '0.5rem',
   padding: '0.1rem 1rem',
-  color: 'white',
   transform: 'skew(-15deg)',
   fontWeight: '900',
 };
@@ -188,6 +217,7 @@ const heigt_box: ChakraProps = {
 };
 
 const sub_title: ChakraProps = {
+  marginTop: '1rem',
   fontSize: '26px',
   fontWeight: '900',
 };
@@ -198,4 +228,37 @@ const ability_box: ChakraProps = {
   transform: 'skew(-15deg)',
   padding: '0.1rem 1rem',
   textTransform: 'capitalize',
+};
+
+const progrs_style: ChakraProps = {
+  marginTop: '5px',
+  position: 'inherit',
+};
+
+const stat_value: ChakraProps = {
+  textTransform: 'uppercase',
+  textAlign: 'right',
+};
+
+const stat_name: ChakraProps = {
+  textTransform: 'uppercase',
+};
+
+const panel_style: ChakraProps = {
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  margin: '0px',
+  display: 'flex',
+  justifyContent: 'flex-start',
+  gap: '2px',
+  maxHeight: '412px',
+  overflowY: 'scroll',
+  padding: '5px',
+};
+
+const move_style: ChakraProps = {
+  marginRight: '0.5rem',
+  marginBottom: '0.5rem',
+  textTransform: 'capitalize' as const,
+  padding: '0 0.5rem',
 };
