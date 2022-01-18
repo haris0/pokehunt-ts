@@ -53,7 +53,7 @@ const CollectionContextProvider = ({ children }: props) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('theme', JSON.stringify(collection));
+    localStorage.setItem('collection', JSON.stringify(collection));
   }, [collection]);
 
   return (
