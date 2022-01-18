@@ -10,12 +10,14 @@ import { Link, useNavigate } from 'react-router-dom';
 
 type props = {
   bgColor: string,
+  pokemonName: string,
   pokemonCount: number,
   handleCatch: () => void,
 }
 
 const CatchButton = ({
   bgColor,
+  pokemonName,
   pokemonCount,
   handleCatch,
 }: props) => {
@@ -31,9 +33,18 @@ const CatchButton = ({
           >
             <Image alt="Dark" src={LeftArrow} height="20px" width="20px" />
           </button>
+          <Link to="/collection">
+            <button type="button" style={{ ...pokemon_button, backgroundColor: bgColor }}>
+              <Image alt="Poke Ball" src={Pokeball} height="30px" width="30px" />
+              <b style={{ margin: '0 0.7rem', textTransform: 'capitalize' }}>My {pokemonName}</b>
+              <Box {...count_box}>
+                <b>{pokemonCount}</b>
+              </Box>
+            </button>
+          </Link>
           <button
             type="button"
-            style={{ ...pokemon_button, backgroundColor: bgColor }}
+            style={{ ...rounded_button, backgroundColor: bgColor }}
             onClick={(event) => {
               event.preventDefault();
               handleCatch();
@@ -41,16 +52,6 @@ const CatchButton = ({
           >
             <Image alt="Poke Ball" src={Pokeball} height="40px" width="40px" />
           </button>
-          <Link to="/collection">
-            <button
-              type="button"
-              style={{ ...rounded_button, backgroundColor: bgColor }}
-            >
-              <Box {...count_box}>
-                <b>{pokemonCount}</b>
-              </Box>
-            </button>
-          </Link>
         </Flex>
       </Box>
     </Flex>
@@ -94,7 +95,7 @@ const count_box: ChakraProps = {
 const pokemon_button = {
   color: 'white',
   height: '3.4rem',
-  width: '3.4rem',
+  width: '13rem',
   borderRadius: '3.5rem',
   display: 'flex',
   justifyContent: 'center',

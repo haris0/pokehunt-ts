@@ -99,6 +99,7 @@ const DetailPage = () => {
             </Box>
             <CatchButton
               bgColor={typeColor}
+              pokemonName={pokemon?.name as string}
               pokemonCount={0}
               handleCatch={handleCatch}
             />
