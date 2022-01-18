@@ -8,7 +8,6 @@ import {
   Container,
   Heading,
   SimpleGrid,
-  Skeleton,
   Image,
 } from '@chakra-ui/react';
 import { useTheme } from 'context/ThemeContext';
@@ -17,6 +16,7 @@ import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
 import { useEffect } from 'react';
 import PokeHunt from 'assets/PokeHunt.png';
 import CollectionButton from './Child/CollectionButton';
+import LoadingSkeleton from './Child/LoadingSkeleton';
 
 const HomePage = () => {
   const theme = useTheme();
@@ -31,7 +31,6 @@ const HomePage = () => {
     fetchMore,
   } = useQuery<IPokemonsRes>(GET_POKEMONS, { variables });
   const pokemons = data?.pokemons?.results;
-  const skeletonArr = Array.from(Array(20).keys());
 
   const handleLoadMore = () => {
     variables.offset += variables.limit;
@@ -79,7 +78,6 @@ const HomePage = () => {
         >
           <Spinball height="3rem" speed="10" />
           <Box marginLeft="1rem">
-
             <Image
               alt="Poketop"
               height="3.5rem"
@@ -88,11 +86,7 @@ const HomePage = () => {
           </Box>
         </Heading>
         {loading && (
-          <SimpleGrid minChildWidth="8rem" spacing="40px" justifyItems="center">
-            {skeletonArr.map((skeleton) => (
-              <Skeleton {...skeleton_style} key={skeleton} />
-            ))}
-          </SimpleGrid>
+          <LoadingSkeleton />
         )}
         {!loading && error && (
           <span>Error! {error.message}</span>
@@ -124,12 +118,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-const skeleton_style: ChakraProps = {
-  height: '14.5rem',
-  width: '10rem',
-  borderRadius: '20px',
-};
 
 const container_style = {
   maxW: '960px',
