@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import CollectionContextProvider from './CollectionContext';
 import ThemeContextProvider from './ThemeContext';
 
 type props = {
@@ -17,6 +18,7 @@ const combineProviders = (providers: any): FC => providers.reduce(
 
 const ContextProvider = combineProviders([
   ThemeContextProvider,
+  CollectionContextProvider,
 ]);
 
 export default ContextProvider;
