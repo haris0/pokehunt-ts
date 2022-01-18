@@ -10,6 +10,7 @@ const PokemonAbilities = ({ abilities, typeColor }: props) => (
   <Box display="flex">
     {abilities?.map((ability) => (
       <Box
+        key={ability.ability.name}
         border={`2px solid ${typeColor}`}
         {...ability_box}
       >

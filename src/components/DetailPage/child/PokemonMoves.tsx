@@ -9,7 +9,11 @@ type props = {
 const PokemonMoves = ({ moves, typeColor }: props) => (
   <Box pb={4} {...panel_style}>
     {moves?.map((move) => (
-      <Box border={`2px solid ${typeColor}`} {...move_style}>
+      <Box
+        key={move.move.name}
+        border={`2px solid ${typeColor}`}
+        {...move_style}
+      >
         {move.move.name}
       </Box>
     ))}

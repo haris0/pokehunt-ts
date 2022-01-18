@@ -17,6 +17,7 @@ import PokemonStats from './child/PokemonStats';
 import PokemonMoves from './child/PokemonMoves';
 import PokemonAbilities from './child/PokemonAbilities';
 import PokemonTypes from './child/PokemonTypes';
+import LoadingSkeleton from './child/LoadingSkeleton';
 
 const DetailPage = () => {
   const params = useParams();
@@ -35,7 +36,7 @@ const DetailPage = () => {
   return (
     <Box id="Detail">
       {loading && (
-        <span>Loading...</span>
+        <LoadingSkeleton />
       )}
       {!loading && error && (
         <span>Error! {error.message}</span>
