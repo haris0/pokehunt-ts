@@ -12,6 +12,7 @@ type props = {
   bgColor: string,
   pokemonName: string,
   pokemonCount: number,
+  activeCatch: boolean,
   handleCatch: () => void,
 }
 
@@ -19,6 +20,7 @@ const CatchButton = ({
   bgColor,
   pokemonName,
   pokemonCount,
+  activeCatch,
   handleCatch,
 }: props) => {
   const navigate = useNavigate();
@@ -44,13 +46,16 @@ const CatchButton = ({
           </Link>
           <button
             type="button"
+            disabled={activeCatch}
             style={{ ...rounded_button, backgroundColor: bgColor }}
             onClick={(event) => {
               event.preventDefault();
               handleCatch();
             }}
           >
-            <Image alt="Poke Ball" src={Pokeball} height="40px" width="40px" />
+            {!activeCatch && (
+              <Image alt="Poke Ball" src={Pokeball} height="40px" width="40px" />
+            )}
           </button>
         </Flex>
       </Box>
@@ -95,7 +100,7 @@ const count_box: ChakraProps = {
 const pokemon_button = {
   color: 'white',
   height: '3.4rem',
-  width: '13rem',
+  padding: '0 0.7rem',
   borderRadius: '3.5rem',
   display: 'flex',
   justifyContent: 'center',

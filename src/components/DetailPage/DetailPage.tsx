@@ -5,13 +5,17 @@ import {
   Container,
   Image,
   Text,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import { TypeColors } from 'colors';
 import { GET_POKEMON_DETAIL } from 'queries';
 import { useParams } from 'react-router-dom';
-import { IPokemonDetRes } from 'types';
-import pokeball from 'assets/Pokeball.png';
-import pokeEgg from 'assets/PokeEgg.png';
+import { ICollection, IPokemonDetRes } from 'types';
+import Pokeball from 'assets/Pokeball.png';
+import PokeEgg from 'assets/PokeEgg.png';
+import { ChangeEvent, useState } from 'react';
+import { useAddCollection, useIsUniqueNickname } from 'context/CollectionContext';
 import PokemonSize from './child/PokemonSize';
 import PokemonStats from './child/PokemonStats';
 import PokemonMoves from './child/PokemonMoves';
@@ -19,9 +23,19 @@ import PokemonAbilities from './child/PokemonAbilities';
 import PokemonTypes from './child/PokemonTypes';
 import LoadingSkeleton from './child/LoadingSkeleton';
 import CatchButton from './child/CatchButton';
+import CatchingBall from './child/CatchingBall';
+import SuccessModal from './child/SuccessModal';
+
+const randomCatch = () => {
+  const arr = [1, 0];
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  const item = arr[randomIndex];
+  return item;
+};
 
 const DetailPage = () => {
   const params = useParams();
+  const toast = useToast();
   const {
     loading,
     error,
@@ -33,9 +47,85 @@ const DetailPage = () => {
   });
   const pokemon = data?.pokemon;
   const typeColor = TypeColors[pokemon?.types[0].type.name || 'normal'];
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const isUniqueNickname = useIsUniqueNickname();
+  const addCollection = useAddCollection();
+
+  const [isCathcing, setIsCathcing] = useState(false);
+  const [cathingAnim, setCathingAnim] = useState(true);
+  const [nicknameErr, setNicknameErr] = useState('');
+  const [nickname, setNickname] = useState('');
+  const handleNickname = (event: ChangeEvent<HTMLInputElement>) => {
+    setNicknameErr('');
+    setNickname(event.target.value);
+  };
 
   const handleCatch = () => {
-    console.log('cathc');
+    setIsCathcing(true);
+    setTimeout(() => {
+      if (randomCatch()) {
+        handleSuccess();
+      } else {
+        handleFailure();
+      }
+    }, 2000);
+  };
+
+  const handleSuccess = () => {
+    console.log('Successfully');
+    setCathingAnim(false);
+    onOpen();
+  };
+
+  const handleFailure = () => {
+    console.log('Failure');
+    setToDefault();
+    toast({
+      position: 'top',
+      duration: 3000,
+      isClosable: true,
+      render: () => (
+        <Box {...toast_style}>
+          {pokemon?.name} run away!! Try again
+        </Box>
+      ),
+    });
+  };
+
+  const setToDefault = () => {
+    setIsCathcing(false);
+    setCathingAnim(true);
+    setNicknameErr('');
+    setNickname('');
+  };
+
+  const releasePokemon = () => {
+    setToDefault();
+    onClose();
+  };
+
+  const adoptPokemon = () => {
+    if (nickname === '') {
+      setNicknameErr('Nickname must be filled');
+      return;
+    }
+
+    if (!isUniqueNickname(nickname)) {
+      setNicknameErr('Nickname must be Unique');
+      return;
+    }
+
+    const newPokemon: ICollection = {
+      id: pokemon?.id as number,
+      name: pokemon?.name as string,
+      nickname,
+      base_experience: pokemon?.base_experience as number,
+      img_url: pokemon?.sprites.front_default as string,
+    };
+    addCollection(newPokemon);
+    setToDefault();
+    onClose();
   };
 
   return (
@@ -48,6 +138,15 @@ const DetailPage = () => {
       )}
       {!loading && data && (
         <Box>
+          <SuccessModal
+            isOpen={isOpen}
+            onClose={releasePokemon}
+            pokemonName={pokemon?.name || ''}
+            onCollect={adoptPokemon}
+            nickname={nickname}
+            nicknameErr={nicknameErr}
+            onNicknameChange={handleNickname}
+          />
           <Box
             {...banner_style}
             bgColor={typeColor}
@@ -55,15 +154,21 @@ const DetailPage = () => {
           <Container {...container_style}>
             <Box display={{ md: 'flex' }}>
               <Box flexShrink={0} {...left_box} width={{ md: '30%' }}>
-                <Box {...image_box}>
-                  <Image
-                    src={pokemon?.sprites.front_default}
-                    fallbackSrc={pokeEgg}
-                    width="17rem"
-                    alt={pokemon?.name}
-                    zIndex={99}
-                  />
-                </Box>
+                {isCathcing && (
+                  <Box {...pokeball_style}>
+                    <CatchingBall withAnimation={cathingAnim} />
+                  </Box>
+                )}
+                {!isCathcing && (
+                  <Box {...image_box}>
+                    <Image
+                      src={pokemon?.sprites.front_default}
+                      fallbackSrc={PokeEgg}
+                      width="17rem"
+                      alt={pokemon?.name}
+                    />
+                  </Box>
+                )}
                 <Box
                   {...exp_box}
                   border={`2px solid ${typeColor}`}
@@ -102,6 +207,7 @@ const DetailPage = () => {
               pokemonName={pokemon?.name as string}
               pokemonCount={0}
               handleCatch={handleCatch}
+              activeCatch={isCathcing}
             />
           </Container>
         </Box>
@@ -112,13 +218,23 @@ const DetailPage = () => {
 
 export default DetailPage;
 
+const toast_style: ChakraProps = {
+  color: 'white',
+  fontWeight: 'bold',
+  borderLeft: '0.5rem solid white',
+  borderRadius: '10px',
+  bg: '#e63950',
+  textTransform: 'capitalize',
+  p: '3',
+};
+
 const banner_style: ChakraProps = {
   width: '100%',
   height: '12rem',
   bgSize: '160px',
   bgPosition: 'center center',
   bgRepeat: 'no-repeat',
-  bgImage: `url(${pokeball})`,
+  bgImage: `url(${Pokeball})`,
 };
 
 const container_style: ChakraProps = {
@@ -134,6 +250,13 @@ const left_box : ChakraProps = {
 const image_box: ChakraProps = {
   display: 'flex',
   justifyContent: 'center',
+};
+
+const pokeball_style: ChakraProps = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '17rem',
 };
 
 const exp_box: ChakraProps = {

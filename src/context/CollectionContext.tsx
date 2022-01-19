@@ -11,6 +11,7 @@ import { ICollection } from 'types';
 
 export interface CollectionContextType {
   collection : ICollection[];
+  isUniqueNickname: (name: string) => boolean;
   addCollection : (collection: ICollection) => void;
   removeCollection : (name: string) => void;
   pokemonCount : () => number;
@@ -19,6 +20,7 @@ export interface CollectionContextType {
 
 const initialCollection: CollectionContextType = {
   collection: [],
+  isUniqueNickname: () => false,
   addCollection: () => {},
   removeCollection: () => {},
   pokemonCount: () => 0,
@@ -33,6 +35,8 @@ type props = {
 
 const CollectionContextProvider = ({ children }: props) => {
   const [collection, setCollection] = useState<ICollection[]>(initialCollection.collection);
+
+  const isUniqueNickname = (name: string) => !collection.some((item) => item.nickname === name);
 
   const addCollection = (newCollections: ICollection) => {
     setCollection((prev) => [...prev, newCollections]);
@@ -59,6 +63,7 @@ const CollectionContextProvider = ({ children }: props) => {
   return (
     <CollectionContext.Provider value={{
       collection,
+      isUniqueNickname,
       addCollection,
       removeCollection,
       pokemonCount,
@@ -74,6 +79,12 @@ export const useCollection = () => {
   const { collection } = useContext(CollectionContext);
 
   return collection;
+};
+
+export const useIsUniqueNickname = () => {
+  const { isUniqueNickname } = useContext(CollectionContext);
+
+  return isUniqueNickname;
 };
 
 export const useAddCollection = () => {
