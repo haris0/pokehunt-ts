@@ -64,13 +64,14 @@ const CardPokemon = ({
           <ModalHeader {...modal_header}>
             Do You Want Release
             <br />
-            {nickname} ?
+            {nickname}?
           </ModalHeader>
           <ModalFooter {...modal_footer}>
             <Button
               {...yes_button}
               onClick={() => {
                 removeCollection(nickname);
+                onClose();
               }}
             >
               Yes

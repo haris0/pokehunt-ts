@@ -87,7 +87,7 @@ const DetailPage = () => {
       duration: 3000,
       isClosable: true,
       render: () => (
-        <Box {...toast_style}>
+        <Box {...toast_style} bgColor="#e63950">
           {pokemon?.name} run away!! Try again
         </Box>
       ),
@@ -125,6 +125,17 @@ const DetailPage = () => {
       img_url: pokemon?.sprites.front_default as string,
       color: typeColor,
     };
+
+    toast({
+      position: 'top',
+      duration: 3000,
+      isClosable: true,
+      render: () => (
+        <Box {...toast_style} bg="#23CBA7">
+          {nickname} The {pokemon?.name} Collected
+        </Box>
+      ),
+    });
 
     addCollection(newPokemon);
     setToDefault();
@@ -226,7 +237,6 @@ const toast_style: ChakraProps = {
   fontWeight: 'bold',
   borderLeft: '0.5rem solid white',
   borderRadius: '10px',
-  bg: '#e63950',
   textTransform: 'capitalize',
   p: '3',
 };
