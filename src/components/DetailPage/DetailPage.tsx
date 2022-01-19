@@ -14,18 +14,17 @@ import { useParams } from 'react-router-dom';
 import { ICollection, IPokemonDetRes } from 'types';
 import Pokeball from 'assets/Pokeball.png';
 import PokeEgg from 'assets/PokeEgg.png';
-import { ChangeEvent, lazy, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useAddCollection, useIsUniqueNickname, usePokemonCountByName } from 'context/CollectionContext';
 import LoadingSkeleton from './child/LoadingSkeleton';
-
-const PokemonSize = lazy(() => import('./child/PokemonSize'));
-const PokemonStats = lazy(() => import('./child/PokemonStats'));
-const PokemonMoves = lazy(() => import('./child/PokemonMoves'));
-const PokemonAbilities = lazy(() => import('./child/PokemonAbilities'));
-const PokemonTypes = lazy(() => import('./child/PokemonTypes'));
-const CatchButton = lazy(() => import('./child/CatchButton'));
-const CatchingBall = lazy(() => import('./child/CatchingBall'));
-const SuccessModal = lazy(() => import('./child/SuccessModal'));
+import PokemonSize from './child/PokemonSize';
+import PokemonStats from './child/PokemonStats';
+import PokemonMoves from './child/PokemonMoves';
+import PokemonAbilities from './child/PokemonAbilities';
+import PokemonTypes from './child/PokemonTypes';
+import CatchButton from './child/CatchButton';
+import CatchingBall from './child/CatchingBall';
+import SuccessModal from './child/SuccessModal';
 
 const randomCatch = () => {
   const arr = [1, 0];
