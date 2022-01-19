@@ -15,7 +15,7 @@ import { ICollection, IPokemonDetRes } from 'types';
 import Pokeball from 'assets/Pokeball.png';
 import PokeEgg from 'assets/PokeEgg.png';
 import { ChangeEvent, useState } from 'react';
-import { useAddCollection, useIsUniqueNickname } from 'context/CollectionContext';
+import { useAddCollection, useIsUniqueNickname, usePokemonCountByName } from 'context/CollectionContext';
 import PokemonSize from './child/PokemonSize';
 import PokemonStats from './child/PokemonStats';
 import PokemonMoves from './child/PokemonMoves';
@@ -51,6 +51,7 @@ const DetailPage = () => {
 
   const isUniqueNickname = useIsUniqueNickname();
   const addCollection = useAddCollection();
+  const pokemonCountByName = usePokemonCountByName();
 
   const [isCathcing, setIsCathcing] = useState(false);
   const [cathingAnim, setCathingAnim] = useState(true);
@@ -123,6 +124,7 @@ const DetailPage = () => {
       base_experience: pokemon?.base_experience as number,
       img_url: pokemon?.sprites.front_default as string,
     };
+
     addCollection(newPokemon);
     setToDefault();
     onClose();
@@ -205,7 +207,7 @@ const DetailPage = () => {
             <CatchButton
               bgColor={typeColor}
               pokemonName={pokemon?.name as string}
-              pokemonCount={0}
+              pokemonCount={pokemonCountByName(pokemon?.name as string)}
               handleCatch={handleCatch}
               activeCatch={isCathcing}
             />

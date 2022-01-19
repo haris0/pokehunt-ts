@@ -15,6 +15,7 @@ import Spinball from 'components/Reuseable/Spinball/Spinball';
 import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
 import PokeHunt from 'assets/PokeHunt.png';
 import DownArrow from 'assets/DownArrow.png';
+import { usePokemonCount, usePokemonCountByName } from 'context/CollectionContext';
 import CollectionButton from './Child/CollectionButton';
 import LoadingSkeleton from './Child/LoadingSkeleton';
 
@@ -31,6 +32,9 @@ const HomePage = () => {
     fetchMore,
   } = useQuery<IPokemonsRes>(GET_POKEMONS, { variables });
   const pokemons = data?.pokemons?.results;
+
+  const pokemonCount = usePokemonCount();
+  const pokemonsCountByName = usePokemonCountByName();
 
   const handleLoadMore = () => {
     variables.offset = data?.pokemons.nextOffset as number;
@@ -82,7 +86,7 @@ const HomePage = () => {
                     name={pokemon.name}
                     number={idx + 1}
                     imageUrl={pokemon.image}
-                    owned={0}
+                    owned={pokemonsCountByName(pokemon?.name as string)}
                   />
                 </Link>
               ))}
@@ -98,7 +102,7 @@ const HomePage = () => {
             </Box>
           </>
         )}
-        <CollectionButton theme={theme} count={0} />
+        <CollectionButton theme={theme} count={pokemonCount()} />
       </Container>
     </Box>
   );
