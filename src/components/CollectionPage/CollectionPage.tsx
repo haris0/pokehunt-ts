@@ -40,6 +40,7 @@ const CollectionPage = () => {
                   owned={0}
                   release
                   nickname={pokemon.nickname}
+                  typeColor={pokemon.color}
                 />
               </Link>
             ))}

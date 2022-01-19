@@ -123,6 +123,7 @@ const DetailPage = () => {
       nickname,
       base_experience: pokemon?.base_experience as number,
       img_url: pokemon?.sprites.front_default as string,
+      color: typeColor,
     };
 
     addCollection(newPokemon);

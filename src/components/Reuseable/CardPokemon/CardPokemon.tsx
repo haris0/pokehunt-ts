@@ -24,6 +24,7 @@ type props = {
   owned: number;
   release?: boolean;
   nickname?: string;
+  typeColor?: string;
 }
 
 const CardPokemon = ({
@@ -34,6 +35,7 @@ const CardPokemon = ({
   owned,
   release = false,
   nickname = '',
+  typeColor = '',
 }: props) => {
   const removeCollection = useRemoveCollection();
 
@@ -77,7 +79,7 @@ const CardPokemon = ({
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Box {...image_box}>
+      <Box {...image_box} bgColor={typeColor || 'rgba(0,0,0,.3)'}>
         <Box {...number_style}>
           <b>#{String(number).padStart(3, '0')}</b>
         </Box>
@@ -151,7 +153,6 @@ const image_box: ChakraProps = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: 'rgba(0,0,0,.3)',
   backgroundSize: '70%',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
