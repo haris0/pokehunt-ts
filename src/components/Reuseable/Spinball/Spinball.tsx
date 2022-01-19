@@ -28,6 +28,7 @@ const Spinball = ({ height, speed }: props) => {
       src={pokeball}
       height={height}
       width={height}
+      display="initial"
     />
   );
 };
