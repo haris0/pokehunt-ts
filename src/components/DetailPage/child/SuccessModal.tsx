@@ -81,6 +81,7 @@ export default SuccessModal;
 const modal_footer: ChakraProps = {
   display: 'initial',
   textAlign: 'center',
+  paddingTop: '0',
 };
 
 const yes_button: ChakraProps = {
