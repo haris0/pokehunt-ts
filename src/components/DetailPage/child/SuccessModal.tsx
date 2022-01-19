@@ -41,6 +41,7 @@ const SuccessModal = ({
       isOpen={isOpen}
       onClose={onClose}
       isCentered
+      closeOnOverlayClick={false}
     >
       <ModalOverlay />
       <ModalContent>
