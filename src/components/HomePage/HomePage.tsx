@@ -11,13 +11,15 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { useTheme } from 'context/ThemeContext';
-import Spinball from 'components/Reuseable/Spinball/Spinball';
-import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
 import PokeHunt from 'assets/PokeHunt.png';
 import DownArrow from 'assets/DownArrow.png';
+import { lazy } from 'react';
 import { usePokemonCount, usePokemonCountByName } from 'context/CollectionContext';
-import CollectionButton from './Child/CollectionButton';
-import LoadingSkeleton from './Child/LoadingSkeleton';
+
+const Spinball = lazy(() => import('components/Reuseable/Spinball/Spinball'));
+const CardPokemon = lazy(() => import('components/Reuseable/CardPokemon/CardPokemon'));
+const CollectionButton = lazy(() => import('./Child/CollectionButton'));
+const LoadingSkeleton = lazy(() => import('./Child/LoadingSkeleton'));
 
 const HomePage = () => {
   const theme = useTheme();

@@ -6,11 +6,13 @@ import {
   Text,
   SimpleGrid,
 } from '@chakra-ui/react';
-import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
-import Spinball from 'components/Reuseable/Spinball/Spinball';
+import { lazy } from 'react';
 import { useCollection } from 'context/CollectionContext';
 import { useTheme } from 'context/ThemeContext';
 import { Link } from 'react-router-dom';
+
+const CardPokemon = lazy(() => import('components/Reuseable/CardPokemon/CardPokemon'));
+const Spinball = lazy(() => import('components/Reuseable/Spinball/Spinball'));
 
 const CollectionPage = () => {
   const theme = useTheme();
