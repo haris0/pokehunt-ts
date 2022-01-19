@@ -42,8 +42,8 @@ const CollectionContextProvider = ({ children }: props) => {
     setCollection((prev) => [...prev, newCollections]);
   };
 
-  const removeCollection = (name: string) => {
-    setCollection((prev) => prev.filter((item) => item.name !== name));
+  const removeCollection = (nickname: string) => {
+    setCollection((prev) => prev.filter((item) => item.nickname !== nickname));
   };
 
   const pokemonCount = () => collection.length;

@@ -3,14 +3,17 @@ import {
   ChakraProps,
   Container,
   Heading,
-  theme,
   Text,
+  SimpleGrid,
 } from '@chakra-ui/react';
+import CardPokemon from 'components/Reuseable/CardPokemon/CardPokemon';
 import Spinball from 'components/Reuseable/Spinball/Spinball';
 import { useCollection } from 'context/CollectionContext';
+import { useTheme } from 'context/ThemeContext';
 import { Link } from 'react-router-dom';
 
 const CollectionPage = () => {
+  const theme = useTheme();
   const collection = useCollection();
   console.log(collection);
   return (
@@ -26,7 +29,21 @@ const CollectionPage = () => {
           </Box>
         </Heading>
         {!!collection.length && (
-          <Box>Collection</Box>
+          <SimpleGrid minChildWidth="8rem" spacing="40px" justifyItems="center">
+            {collection.map((pokemon, idx) => (
+              <Link to={`/pokemon/${pokemon.name}`} key={pokemon.id}>
+                <CardPokemon
+                  theme={theme}
+                  name={`The ${pokemon.name}`}
+                  number={idx + 1}
+                  imageUrl={pokemon.img_url}
+                  owned={0}
+                  release
+                  nickname={pokemon.nickname}
+                />
+              </Link>
+            ))}
+          </SimpleGrid>
         )}
         {!collection.length && (
           <Box textAlign="center" marginTop="2rem">
@@ -58,7 +75,7 @@ const heading_style: ChakraProps = {
   color: '#2E3131',
   textAlign: 'center',
   marginTop: '1rem',
-  marginBottom: '2rem',
+  marginBottom: '3rem',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
