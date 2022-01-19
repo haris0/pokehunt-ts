@@ -5,8 +5,8 @@ import error404 from 'assets/error404.png';
 
 const Page404 = () => (
   <Box id="Page404">
-    <Box textAlign="center" paddingTop="85px">
-      <Text {...no_pokemon_text}> Page Not found !
+    <Box textAlign="center" paddingTop="3.5rem">
+      <Text {...no_pokemon_text}> Page Not found!
         <Image alr="Page Not Foun" {...no_pokemon_img} src={error404} />
       </Text>
     </Box>
