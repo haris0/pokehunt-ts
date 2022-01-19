@@ -66,7 +66,7 @@ const HomePage = () => {
           <Spinball height="3rem" speed="10" />
           <Box marginLeft="1rem">
             <Image
-              alt="Poketop"
+              alt="Pokehunt"
               height="3.5rem"
               src={PokeHunt}
             />
