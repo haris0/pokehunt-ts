@@ -17,7 +17,6 @@ const Spinball = lazy(() => import('components/Reuseable/Spinball/Spinball'));
 const CollectionPage = () => {
   const theme = useTheme();
   const collection = useCollection();
-  console.log(collection);
   return (
     <Box id="Collection">
       <Container {...container_style}>

@@ -33,6 +33,8 @@ const randomCatch = () => {
   return item;
 };
 
+const ANIMATED_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/';
+
 const DetailPage = () => {
   const params = useParams();
   const toast = useToast();
@@ -74,13 +76,11 @@ const DetailPage = () => {
   };
 
   const handleSuccess = () => {
-    console.log('Successfully');
     setCathingAnim(false);
     onOpen();
   };
 
   const handleFailure = () => {
-    console.log('Failure');
     setToDefault();
     toast({
       position: 'top',
@@ -176,9 +176,9 @@ const DetailPage = () => {
                 {!isCathcing && (
                   <Box {...image_box}>
                     <Image
-                      src={pokemon?.sprites.front_default}
+                      src={`${ANIMATED_URL}${pokemon?.id}.gif`}
                       fallbackSrc={PokeEgg}
-                      width="17rem"
+                      width="14rem"
                       alt={pokemon?.name}
                     />
                   </Box>
@@ -257,12 +257,18 @@ const container_style: ChakraProps = {
 
 const left_box : ChakraProps = {
   position: 'relative',
-  marginTop: '-11rem',
 };
 
 const image_box: ChakraProps = {
   display: 'flex',
   justifyContent: 'center',
+  position: 'absolute',
+  top: {
+    base: '-13rem',
+    md: '-10rem',
+  },
+  left: 0,
+  right: 0,
 };
 
 const pokeball_style: ChakraProps = {
@@ -270,10 +276,20 @@ const pokeball_style: ChakraProps = {
   justifyContent: 'center',
   alignItems: 'center',
   height: '17rem',
+  position: 'absolute',
+  top: {
+    base: '-13rem',
+    md: '-10rem',
+  },
+  left: 0,
+  right: 0,
 };
 
 const exp_box: ChakraProps = {
-  marginTop: '-1.5rem',
+  marginTop: {
+    base: '2rem',
+    md: '4.5rem',
+  },
   textAlign: 'center',
   marginBottom: '0.5rem',
   padding: '0.1rem 1rem',

@@ -23,7 +23,6 @@ type props = {
 
 const CatchingBall = ({ withAnimation }: props) => {
   const prefersReducedMotion = usePrefersReducedMotion();
-  console.log(withAnimation);
 
   const animation = prefersReducedMotion
     ? undefined
